@@ -7,10 +7,13 @@
         internal void Start()
         {
             _updateController = new UpdateController();
+            EventHandler OnStartScene = new EventHandler();
+
 
         }
         public void Update(float deltaTime)
         {
+            _updateController.Update(deltaTime);
         }
     }
 }

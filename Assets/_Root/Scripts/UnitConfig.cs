@@ -2,17 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitConfig : MonoBehaviour
+[CreateAssetMenu(fileName = nameof(UnitConfig), menuName = "ScriptableObject/" + nameof(UnitConfig))]
+public class UnitConfig : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int countNumber;
+    public float health;
+    public float armor;
+    public float vampirism;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
