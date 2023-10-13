@@ -9,5 +9,5 @@ public class UnitConfig : ScriptableObject
     public float health;
     public float armor;
     public float vampirism;
-
+    public Material unitMat;
 }
