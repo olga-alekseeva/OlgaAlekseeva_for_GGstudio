@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: SecondUnitConfig
   m_EditorClassIdentifier: 
   countNumber: 2
+  baseAttack: 15
   health: 100
   armor: 0
   vampirism: 0
+  unitColor: {r: 0.062077243, g: 0.7405816, b: 0.8773585, a: 0}

@@ -28,13 +28,20 @@ public class UnitManager
 
         UnitPositionConfig unitPositionConfig = Resources.Load<UnitPositionConfig>(configPosPath);
         GameObject unit = _unitViewFactory.InstantiateUnits(unitPositionConfig);
-        Material unitMaterial  = unit.GetComponent<Renderer>().material;
-        unitMaterial.color = unitConfig.unitColor;
 
         GameObject UIPosPrefab = Resources.Load<GameObject>(uiParentPosPath);
         GameObject UIPosition = GameObject.Instantiate(UIPosPrefab);
         UnitUIPosition UIParentPos = UIPosition.GetComponent<UnitUIPosition>();
         _unitUIFactory.UnitUIInstantiator(UIParentPos.parentPosition);
+
+
+        Material unitMaterial  = unit.GetComponent<Renderer>().material;
+        unitMaterial.color = unitConfig.unitColor;
+
+        UnitUIViewController unitUIViewController = new UnitUIViewController();
+        unitUIViewController.HPSetter(configPath);
+
+
     }
 }
 

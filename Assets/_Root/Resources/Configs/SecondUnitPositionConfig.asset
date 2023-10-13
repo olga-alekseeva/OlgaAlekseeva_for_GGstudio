@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba06576c415f12f4f8e3f0a247bef08a, type: 3}
   m_Name: SecondUnitPositionConfig
   m_EditorClassIdentifier: 
-  position: {x: 10, y: 2, z: 0}
+  position: {x: 7.5, y: 2, z: 0}
