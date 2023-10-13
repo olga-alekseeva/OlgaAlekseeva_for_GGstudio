@@ -6,8 +6,9 @@ using UnityEngine;
 public class UnitConfig : ScriptableObject
 {
     public int countNumber;
+    public float baseAttack;
     public float health;
     public float armor;
     public float vampirism;
-    public Material unitMat;
+    public Color unitColor;
 }

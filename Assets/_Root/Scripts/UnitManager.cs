@@ -18,8 +18,8 @@ public class UnitManager
 
     private void CreateUnits()
     {
-        CreateUnit(ResourcePathes.FIRST_UNIT_SETTINGS, ResourcePathes.FIRST_UNIT_POS, "Prefabs/UI/ParentLeftUITransform");
-        CreateUnit(ResourcePathes.SECOND_UNIT_SETTINGS, ResourcePathes.SECOND_UNIT_POS, "Prefabs/UI/ParentRightUITransform");
+        CreateUnit(ResourcePathes.FIRST_UNIT_SETTINGS, ResourcePathes.FIRST_UNIT_POS, ResourcePathes.LEFT_UNIT_UI_POS);
+        CreateUnit(ResourcePathes.SECOND_UNIT_SETTINGS, ResourcePathes.SECOND_UNIT_POS, ResourcePathes.RIGHT_UNIT_UI_POS);
     }
 
     private void CreateUnit(string configPath, string configPosPath, string uiParentPosPath)
@@ -28,7 +28,8 @@ public class UnitManager
 
         UnitPositionConfig unitPositionConfig = Resources.Load<UnitPositionConfig>(configPosPath);
         GameObject unit = _unitViewFactory.InstantiateUnits(unitPositionConfig);
-
+        Material unitMaterial  = unit.GetComponent<Renderer>().material;
+        unitMaterial.color = unitConfig.unitColor;
 
         GameObject UIPosPrefab = Resources.Load<GameObject>(uiParentPosPath);
         GameObject UIPosition = GameObject.Instantiate(UIPosPrefab);

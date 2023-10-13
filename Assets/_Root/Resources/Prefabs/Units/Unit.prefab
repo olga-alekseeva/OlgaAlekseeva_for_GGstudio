@@ -110,4 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70eef9d0cbf14c14382469de4ccfacb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Transform: {fileID: 0}
+  parentTransform: {fileID: 0}
+  hpSlider: {fileID: 0}
+  armorSlider: {fileID: 0}
+  vampirismSlider: {fileID: 0}

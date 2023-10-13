@@ -8,7 +8,11 @@ internal sealed class ResourcePathes
 
 
 
+
     public const string UNIT = "Prefabs/Units/Unit";
+    public const string LEFT_UNIT_UI_POS = "Prefabs/UI/ParentLeftUITransform";
+    public const string RIGHT_UNIT_UI_POS = "Prefabs/UI/ParentRightUITransform";
+
 
 }
 
