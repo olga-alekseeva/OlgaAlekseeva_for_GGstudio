@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SecondUnitConfig
   m_EditorClassIdentifier: 
   countNumber: 2
-  baseAttack: 15
+  unitName: George
+  attackForce: 15
   health: 100
   armor: 0
   vampirism: 0

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UnitManager
+internal sealed class UnitManager
 {
     private UnitViewFactory _unitViewFactory;
     private UnitUIFactory _unitUIFactory;
@@ -35,13 +35,14 @@ public class UnitManager
         _unitUIFactory.UnitUIInstantiator(UIParentPos.parentPosition);
 
 
-        Material unitMaterial  = unit.GetComponent<Renderer>().material;
+        Material unitMaterial = unit.GetComponent<Renderer>().material;
         unitMaterial.color = unitConfig.unitColor;
 
         UnitUIViewController unitUIViewController = new UnitUIViewController();
         unitUIViewController.HPSetter(configPath);
-
-
+        unitUIViewController.NameSetter(configPath);
+        unitUIViewController.AttackForceSetter(configPath);
     }
+   
 }
 

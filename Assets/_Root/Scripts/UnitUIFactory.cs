@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class UnitUIFactory
+internal sealed class UnitUIFactory
 {
     private GameObject _uiPrefab;
 

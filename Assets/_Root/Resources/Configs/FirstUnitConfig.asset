@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: FirstUnitConfig
   m_EditorClassIdentifier: 
   countNumber: 1
-  baseAttack: 15
-  health: 80
+  unitName: Fred
+  attackForce: 15
+  health: 100
   armor: 0
   vampirism: 0
   unitColor: {r: 0.19897595, g: 0.6792453, b: 0.16981132, a: 0}

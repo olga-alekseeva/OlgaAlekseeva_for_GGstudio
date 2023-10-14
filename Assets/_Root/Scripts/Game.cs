@@ -7,6 +7,7 @@ namespace Testwork.Starter
     {
         private UpdateController _updateController;
         private EventHandler _onStartGame;
+
         public Game()
         {
 
@@ -15,6 +16,12 @@ namespace Testwork.Starter
 
             UnitManager unitManager = new UnitManager();
             _onStartGame.AddHandler(unitManager.OnStartGame);
+
+            GameUIManager gameUIManager = new GameUIManager();
+            _onStartGame.AddHandler(gameUIManager.OnStartGame);
+
+            RoundCounterManager roundCounterManager = new RoundCounterManager();
+            _onStartGame.AddHandler(roundCounterManager.OnStartGame);
         }
 
         internal void Start()
