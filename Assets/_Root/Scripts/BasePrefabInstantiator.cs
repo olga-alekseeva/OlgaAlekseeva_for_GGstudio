@@ -15,7 +15,6 @@ internal class BasePrefabInstantiator
     {
         _prefab = prefab;
     }
-
     public virtual void Show()
     {
         if (_isShown) return;

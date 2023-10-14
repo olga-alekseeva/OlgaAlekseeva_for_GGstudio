@@ -30,6 +30,7 @@ internal sealed class UnitUIViewController
         SetPath(configPath);
         _unitUIView.attackForce.text = $"Attack force: " + _unitConfig.attackForce.ToString();
     }
-
+    
+  
    
 }

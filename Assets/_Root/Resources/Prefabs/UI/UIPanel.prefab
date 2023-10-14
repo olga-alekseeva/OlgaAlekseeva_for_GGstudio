@@ -1014,8 +1014,11 @@ MonoBehaviour:
   ui: {fileID: 2940301818461528415}
   unitName: {fileID: 7045403134998385722}
   attackForce: {fileID: 4456676972615318652}
-  attack: {fileID: 707152417069254085}
+  attackButton: {fileID: 707152417069254085}
+  addBuffButton: {fileID: 899827395584412393}
   hpSlider: {fileID: 552340317362592484}
+  armorSlider: {fileID: 8238555970769889917}
+  vampirismSlider: {fileID: 6925629319663579018}
 --- !u!114 &205677746753459591
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,4 +12,5 @@ public class UnitConfig : ScriptableObject
     public float armor;
     public float vampirism;
     public Color unitColor;
+    public bool isEnabled = true;
 }
