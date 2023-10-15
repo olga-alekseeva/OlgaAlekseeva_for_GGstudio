@@ -52,8 +52,6 @@ internal sealed class UnitManager
         unitAttackController._unitConfigFrom = unitConfig;
         unitAttackController._unitUIViewFrom = unitUIView;
         unitUIView.attackButton.onClick.AddListener(unitAttackController.Attack);
-        //RoundCounter roundCounter = new RoundCounter();
-        //roundCounter.SwitchRound();
         return unitAttackController;
     }
 

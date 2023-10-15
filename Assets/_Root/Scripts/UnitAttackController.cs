@@ -8,11 +8,6 @@ internal sealed class UnitAttackController
     public UnitUIView _unitUIViewFrom;
     public UnitUIView _unitUIViewTo;
 
-    public UnitAttackController()
-    {
-        _unitUIViewFrom = GameObject.FindObjectOfType<UnitUIView>();
-        _unitUIViewTo = GameObject.FindObjectOfType<UnitUIView>();
-    }
     public void Attack()
     {
         _unitConfigTo.health = _unitConfigTo.health - _unitConfigFrom.attackForce;
