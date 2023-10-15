@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2edefe8d75eb8840805af68a4c2f85c, type: 3}
   m_Name: SecondUnitConfig
   m_EditorClassIdentifier: 
-  countNumber: 2
   unitName: George
   attackForce: 15
-  health: 100
+  health: 0
   armor: 0
   vampirism: 0
-  unitColor: {r: 0.062077243, g: 0.7405816, b: 0.8773585, a: 0}
+  unitColor: {r: 0.34231696, g: 0.7264151, b: 0.25698647, a: 1}

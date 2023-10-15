@@ -5,6 +5,7 @@ internal sealed class Unit
 {
     public EventHandler<Unit> OnUnitAttack = new();
     public EventHandler<Unit> OnUnitBuffBressed = new();
+    public EventHandler<Unit> OnSceneReset = new();
 
     public UnitConfig unitConfig;
     private UnitUIView _unitUIView;
@@ -38,6 +39,10 @@ internal sealed class Unit
         _unitUIView.armorSlider.value = unitConfig.armor;
         _unitUIView.vampirismSlider.value = unitConfig.vampirism;
         _unitUIView.unitNameText.text = unitConfig.unitName;
+
+        _unitUIView.hpCounter.text  = unitConfig.health.ToString();
+        _unitUIView.armorCounter.text = unitConfig.armor.ToString();
+        _unitUIView.vampirismCounter.text = unitConfig.vampirism.ToString();
         _unitUIView.attackForceText.text = $"Attack Force: " + unitConfig.attackForce.ToString();
     }
 

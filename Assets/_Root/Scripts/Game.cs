@@ -40,6 +40,8 @@
             unitManager.OnUnitBuffPressedEvent.AddHandler(buffManager.ButtonBuffPressed);
             buffManager.OnUnitChooseBuff.AddHandler(unitManager.OnUnitChooseBuff);
 
+            UnitKilledController unitKilledController = new UnitKilledController();
+            unitAttackController.OnUnitDied.AddHandler(unitKilledController.OnUnitDied);
         }
 
         internal void Start()
