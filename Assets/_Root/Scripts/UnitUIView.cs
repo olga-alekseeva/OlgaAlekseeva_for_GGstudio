@@ -4,9 +4,8 @@ using TMPro;
 
 public class UnitUIView : MonoBehaviour
 {
-    public GameObject ui;
-    public TMP_Text unitName;
-    public TMP_Text attackForce;
+    public TMP_Text unitNameText;
+    public TMP_Text attackForceText;
     public Button attackButton;
     public Button addBuffButton;
     public Slider hpSlider;

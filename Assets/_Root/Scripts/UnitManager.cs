@@ -1,14 +1,59 @@
-using UnityEngine;
+using System.Collections.Generic;
 
 internal sealed class UnitManager
 {
-    private UnitViewFactory _unitViewFactory;
-    private UnitUIFactory _unitUIFactory;
+    public EventHandler<Unit> OnUnitCreated = new();
+    public EventHandler<Unit, Unit> OnUnitAttacking = new();
+    public EventHandler<Unit> OnUnitBuffPressedEvent = new();
 
-    public UnitManager()
+    public List<Unit> units = new List<Unit>();
+
+    public void OnUnitStartMove(Unit currentUnit)
     {
-        _unitViewFactory = new UnitViewFactory();
-        _unitUIFactory = new UnitUIFactory();
+        foreach (Unit unit in units)
+        {
+            if (unit == currentUnit)
+            {
+                unit.EndbleUI();
+            }
+            else
+            {
+                unit.DisableUI();
+            }
+        }
+    }
+
+    public void OnUnitAttacked(Unit unit)
+    {
+        unit.UpdateUIData();
+    }
+
+    public void OnUnitBuffPressed(Unit unit)
+    {
+        OnUnitBuffPressedEvent.Handle(unit);
+    }
+
+    public void OnUnitChooseBuff(Unit unit, IBuff buff)
+    {
+        unit.AddBuff(buff);
+        Unit enemy = GetAnotherUnit(unit);
+
+        unit.unitConfigBuff = new UnitConfigBuff(unit.unitConfig);
+        enemy.unitConfigBuff = new UnitConfigBuff(enemy.unitConfig);
+
+        ApplyBuffs(unit, enemy);
+        ApplyBuffs(enemy, unit);
+
+        unit.UpdateUIData();
+        enemy.UpdateUIData();
+    }
+
+    private void ApplyBuffs(Unit self, Unit enemy)
+    {
+        foreach (IBuff buff in self._buffs)
+        {
+            buff.Apply(self.unitConfigBuff, enemy.unitConfigBuff);
+        }
     }
 
     public void OnStartGame()
@@ -18,44 +63,48 @@ internal sealed class UnitManager
 
     private void CreateUnits()
     {
-        UnitAttackController unitAttackController1 = CreateUnit(ResourcePathes.FIRST_UNIT_SETTINGS, ResourcePathes.FIRST_UNIT_POS, ResourcePathes.LEFT_UNIT_UI_POS);
-        UnitAttackController unitAttackController2 = CreateUnit(ResourcePathes.SECOND_UNIT_SETTINGS, ResourcePathes.SECOND_UNIT_POS, ResourcePathes.RIGHT_UNIT_UI_POS);
-        unitAttackController1._unitConfigTo = unitAttackController2._unitConfigFrom;
-        unitAttackController2._unitConfigTo = unitAttackController1._unitConfigFrom;
-        unitAttackController1._unitUIViewTo = unitAttackController2._unitUIViewFrom;
-        unitAttackController2._unitUIViewTo = unitAttackController1._unitUIViewFrom;
+        CreateUnit(ResourcePathes.FIRST_UNIT_SETTINGS, ResourcePathes.FIRST_UNIT_POS, ResourcePathes.LEFT_UNIT_UI_POS);
+        CreateUnit(ResourcePathes.SECOND_UNIT_SETTINGS, ResourcePathes.SECOND_UNIT_POS, ResourcePathes.RIGHT_UNIT_UI_POS);
     }
 
-    private UnitAttackController CreateUnit(string configPath, string configPosPath, string uiParentPosPath)
+    private Unit GetAnotherUnit(Unit currentUnit)
     {
-        UnitConfig unitConfig = Resources.Load<UnitConfig>(configPath);
-
-        UnitPositionConfig unitPositionConfig = Resources.Load<UnitPositionConfig>(configPosPath);
-        GameObject unit = _unitViewFactory.InstantiateUnits(unitPositionConfig);
-
-        GameObject UIPosPrefab = Resources.Load<GameObject>(uiParentPosPath);
-        GameObject UIPosition = GameObject.Instantiate(UIPosPrefab);
-        UnitUIPosition UIParentPos = UIPosition.GetComponent<UnitUIPosition>();
-        
-        UnitUIView unitUIView = _unitUIFactory.UnitUIInstantiator(UIParentPos.parentPosition);
-
-
-        Material unitMaterial = unit.GetComponent<Renderer>().material;
-        unitMaterial.color = unitConfig.unitColor;
-
-        UnitUIViewController unitUIViewController = new UnitUIViewController();
-        unitUIViewController.HPSetter(configPath);
-        unitUIViewController.NameSetter(configPath);
-        unitUIViewController.AttackForceSetter(configPath);
-
-        UnitAttackController unitAttackController = new UnitAttackController();
-        unitAttackController._unitConfigFrom = unitConfig;
-        unitAttackController._unitUIViewFrom = unitUIView;
-        unitUIView.attackButton.onClick.AddListener(unitAttackController.Attack);
-        return unitAttackController;
+        foreach (Unit unit in units)
+        {
+            if (unit != currentUnit) return unit;
+        }
+        return currentUnit;
     }
 
+    private void OnUnitAttack(Unit currentuUnit)
+    {
+        Unit unitFrom = currentuUnit;
+        Unit unitTo = GetAnotherUnit(currentuUnit);
 
-   
+        OnUnitAttacking.Handle(unitFrom, unitTo);
+
+        unitFrom.DecreaseBuffTime();
+
+        Unit enemy = GetAnotherUnit(currentuUnit);
+
+        unitFrom.unitConfigBuff = new UnitConfigBuff(unitFrom.unitConfig);
+        unitTo.unitConfigBuff = new UnitConfigBuff(unitTo.unitConfig);
+
+        ApplyBuffs(currentuUnit, enemy);
+        ApplyBuffs(enemy, currentuUnit);
+
+        currentuUnit.UpdateUIData();
+        enemy.UpdateUIData();
+    }
+
+    private void CreateUnit(string configPath, string configPosPath, string uiParentPosPath)
+    {
+        Unit unit = new Unit(configPath, configPosPath, uiParentPosPath);
+        units.Add(unit);
+        unit.OnUnitAttack.AddHandler(OnUnitAttack);
+        unit.OnUnitBuffBressed.AddHandler(OnUnitBuffPressed);
+
+        OnUnitCreated.Handle(unit);
+    }
 }
 

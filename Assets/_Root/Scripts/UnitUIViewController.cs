@@ -23,12 +23,12 @@ internal sealed class UnitUIViewController
     public void NameSetter(string configPath)
     {
         SetPath(configPath);
-        _unitUIView.unitName.text = _unitConfig.unitName;
+        _unitUIView.unitNameText.text = _unitConfig.unitName;
     }
     public void AttackForceSetter(string configPath)
     {
         SetPath(configPath);
-        _unitUIView.attackForce.text = $"Attack force: " + _unitConfig.attackForce.ToString();
+        _unitUIView.attackForceText.text = $"Attack force: " + _unitConfig.attackForce.ToString();
     }
     
   

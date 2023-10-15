@@ -4,6 +4,7 @@
     {
         private UpdateController _updateController;
         private EventHandler _onStartGame;
+        private EventHandler _onStartFirstRound = new();
 
         public Game()
         {
@@ -16,9 +17,29 @@
             UnitManager unitManager = new UnitManager();
             _onStartGame.AddHandler(unitManager.OnStartGame);
 
+            MoveSwither moveSwither = new MoveSwither();
+            unitManager.OnUnitCreated.AddHandler(moveSwither.OnUnitCreated);
+            moveSwither.OnUnitStartMove.AddHandler(unitManager.OnUnitStartMove);
 
-            RoundCounterManager roundCounterManager = new RoundCounterManager();
-            _onStartGame.AddHandler(roundCounterManager.OnStartGame);
+            _onStartFirstRound.AddHandler(moveSwither.FirstRoundStarted);
+
+            UnitAttackController unitAttackController = new UnitAttackController();
+            unitManager.OnUnitAttacking.AddHandler(unitAttackController.OnUnitAttacking);
+            unitAttackController.OnUnitAttacked.AddHandler(unitManager.OnUnitAttacked);
+
+            EndMoveController endMoveController = new EndMoveController();
+            unitAttackController.OnAttacked.AddHandler(endMoveController.EndCurrentMove);
+            endMoveController.OnEndCurrentMove.AddHandler(moveSwither.NextMove);
+
+            RoundController roundController = new RoundController();
+            unitManager.OnUnitCreated.AddHandler(roundController.OnUnitCreated);
+            moveSwither.OnUnitStartMove.AddHandler(roundController.OnUnitStartMove);
+            _onStartGame.AddHandler(roundController.OnStartGame);
+
+            BuffManager buffManager = new BuffManager();
+            unitManager.OnUnitBuffPressedEvent.AddHandler(buffManager.ButtonBuffPressed);
+            buffManager.OnUnitChooseBuff.AddHandler(unitManager.OnUnitChooseBuff);
+
         }
 
         internal void Start()
