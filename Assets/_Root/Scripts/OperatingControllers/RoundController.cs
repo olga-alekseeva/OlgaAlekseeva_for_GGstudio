@@ -30,7 +30,6 @@ internal sealed class RoundController
     {
         _round++;
         UpdateRoundCounter();
-        Debug.Log(_round);
     }
 
     public void UpdateRoundCounter()
