@@ -47,6 +47,7 @@
         internal void Start()
         {
             _onStartGame.Handle();
+            _onStartFirstRound.Handle();
         }
         public void Update(float deltaTime)
         {

@@ -16,7 +16,8 @@ internal sealed class Unit
 
     public Unit(string configPath, string configPosPath, string uiParentPosPath)
     {
-        unitConfig = Resources.Load<UnitConfig>(configPath);
+        UnitConfig unitConfigPrefab = Resources.Load<UnitConfig>(configPath);
+        unitConfig = ScriptableObject.Instantiate(unitConfigPrefab) as UnitConfig;
         unitConfigBuff = new UnitConfigBuff(unitConfig);
 
         UnitViewFactory unitViewFactory = new UnitViewFactory();
@@ -24,7 +25,6 @@ internal sealed class Unit
         GameObject unit = unitViewFactory.InstantiateUnits(unitPositionConfig);
         Material unitMaterial = unit.GetComponent<Renderer>().material;
         unitMaterial.color = unitConfig.unitColor;
-
 
         GameObject UIPosPrefab = Resources.Load<GameObject>(uiParentPosPath);
         GameObject UIPosition = GameObject.Instantiate(UIPosPrefab);
@@ -44,13 +44,6 @@ internal sealed class Unit
         _unitUIView.armorCounter.text = unitConfig.armor.ToString();
         _unitUIView.vampirismCounter.text = unitConfig.vampirism.ToString();
         _unitUIView.attackForceText.text = $"Attack Force: " + unitConfig.attackForce.ToString();
-    }
-
-    public void UpdateUIData()
-    {
-        _unitUIView.hpSlider.value = unitConfigBuff.health;
-        _unitUIView.armorSlider.value = unitConfigBuff.armor;
-        _unitUIView.vampirismSlider.value = unitConfigBuff.vampirism;
     }
 
     public void OnAttackButtonPressed()
@@ -74,11 +67,47 @@ internal sealed class Unit
         _unitUIView.attackButton.gameObject.SetActive(true);
         _unitUIView.addBuffButton.gameObject.SetActive(true);
     }
+    public void UpdateUIData()
+    {
+        _unitUIView.hpSlider.value = unitConfigBuff.health;
+        _unitUIView.armorSlider.value = unitConfigBuff.armor;
+        _unitUIView.vampirismSlider.value = unitConfigBuff.vampirism;
+
+        _unitUIView.hpCounter.text = unitConfigBuff.health.ToString();
+        _unitUIView.armorCounter.text = unitConfigBuff.armor.ToString();
+        _unitUIView.vampirismCounter.text = unitConfigBuff.vampirism.ToString();
+        _unitUIView.attackForceText.text = $"Attack Force: " + unitConfigBuff.attackForce.ToString();
+    }
 
     public void AddBuff(IBuff buff)
     {
         _buffs.Add(buff);
-        Debug.Log(buff.ID);
+        Debug.Log("добавлен бафф" + buff.ID );
+        if (buff.ID == 0)
+        {
+            _unitUIView.doubleBuffIcon.gameObject.SetActive(true);
+            _unitUIView.doubleBuffRoundsLeftText.text = buff.RoundLeft.ToString();
+        }
+        if (buff.ID == 1)
+        {
+            _unitUIView.ArmorSelfBuffIcon.gameObject.SetActive(true);
+            _unitUIView.ArmorSelfBuffRoundsLeftText.text = buff.RoundLeft.ToString();
+        }
+        if (buff.ID == 2)
+        {
+            _unitUIView.ArmorDestructionBuffIcon.gameObject.SetActive(true);
+            _unitUIView.ArmorDestructionBuffRoundsLeftText.text = buff.RoundLeft.ToString();
+        }
+        if (buff.ID == 3)
+        {
+            _unitUIView.VampirismSelfBuffBuffIcon.gameObject.SetActive(true);
+            _unitUIView.VampirismSelfBuffRoundsLeftText.text = buff.RoundLeft.ToString();
+        }
+        if (buff.ID == 4)
+        {
+            _unitUIView.VampirismDecreaseBuffIcon.gameObject.SetActive(true);
+            _unitUIView.VampirismDecreaseBuffRoundsLeftText.text = buff.RoundLeft.ToString();
+        }
     }
 
     public void DecreaseBuffTime()
@@ -89,6 +118,9 @@ internal sealed class Unit
         {
             buff.SetRoundLeft(buff.RoundLeft - 1);
             if (buff.RoundLeft <= 0) buffsToRemove.Add(buff);
+            {
+                buffsToRemove.Add(buff);
+            }
         }
 
         foreach (IBuff buff in buffsToRemove)

@@ -6,7 +6,7 @@ using UnityEngine;
 public class UnitConfig : ScriptableObject
 {
     public string unitName;
-    public int attackForce;
+    public float attackForce;
     public float health;
     public float armor;
     public float vampirism;

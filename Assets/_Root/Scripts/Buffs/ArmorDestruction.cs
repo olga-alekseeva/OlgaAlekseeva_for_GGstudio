@@ -11,11 +11,8 @@
 
     public void Apply(UnitConfigBuff selfUnit, UnitConfigBuff enemyUnit)
     {
-        enemyUnit.armor -= 10;
-        if (enemyUnit.armor <= 0)
-        {
-            enemyUnit.armor = 0;
-        }
+        if (enemyUnit.armor == 0) return;
+            enemyUnit.armor -= 10;
     }
 
     public void SetRoundLeft(int value)

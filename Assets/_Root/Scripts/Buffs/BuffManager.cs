@@ -9,13 +9,13 @@ internal class BuffManager
 
     public BuffManager()
     {
-        CreateAvaibleBuffs();
+        CreateAvailableBuffs();
     }
 
-    private void CreateAvaibleBuffs()
+    private void CreateAvailableBuffs()
     {
-        _availableBuffs.Add(new DoubleDamageBuff(2));
-        _availableBuffs.Add(new ArmorSelfBuff(3));
+        _availableBuffs.Add(new DoubleDamageBuff(1));
+        _availableBuffs.Add(new ArmorSelfBuff(1));
         _availableBuffs.Add(new ArmorDestruction(1));
         _availableBuffs.Add(new VampirismSelfBuff(1));
         _availableBuffs.Add(new VampirismDecreaseBuff(2));

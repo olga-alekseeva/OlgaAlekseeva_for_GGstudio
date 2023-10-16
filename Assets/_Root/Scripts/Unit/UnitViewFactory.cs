@@ -6,12 +6,10 @@ internal sealed class UnitViewFactory
     public UnitViewFactory()
     {
         _prefab = Resources.Load<GameObject>("Prefabs/Units/Unit");
-
     }
     public GameObject InstantiateUnits(UnitPositionConfig unitPositionConfig)
     {
         GameObject go = GameObject.Instantiate(_prefab, unitPositionConfig.position, Quaternion.identity);
         return go;
-
     }
 }

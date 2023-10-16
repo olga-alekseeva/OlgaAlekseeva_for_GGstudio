@@ -2,7 +2,7 @@
 {
     private int _roundLeft;
     public int RoundLeft => _roundLeft;
-    public int ID => 0;
+    public int ID => 4;
 
     public VampirismDecreaseBuff(int roundLeft)
     {
@@ -11,11 +11,8 @@
 
     public void Apply(UnitConfigBuff selfUnit, UnitConfigBuff enemyUnit)
     {
+        if (enemyUnit.vampirism == 0) return;
         enemyUnit.vampirism -= 25;
-        if(enemyUnit.vampirism == 0)
-        {
-            enemyUnit.vampirism = 0;
-        }
     }
 
     public void SetRoundLeft(int value)

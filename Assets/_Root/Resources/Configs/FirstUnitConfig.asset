@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Fred
   attackForce: 15
-  health: 0
-  armor: 0
+  health: 100
+  armor: 20
   vampirism: 0
   unitColor: {r: 0, g: 0.30585554, b: 0.8207547, a: 1}

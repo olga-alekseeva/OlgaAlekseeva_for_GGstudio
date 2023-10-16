@@ -2,7 +2,7 @@ internal sealed class VampirismSelfBuff : IBuff
 {
     private int _roundLeft;
     public int RoundLeft => _roundLeft;
-    public int ID => 0;
+    public int ID => 3;
 
     public VampirismSelfBuff(int roundLeft)
     {
@@ -11,12 +11,9 @@ internal sealed class VampirismSelfBuff : IBuff
 
     public void Apply(UnitConfigBuff selfUnit, UnitConfigBuff enemyUnit)
     {
-        selfUnit.armor -= 25;
-        if (selfUnit.armor == 0)
-        {
-            selfUnit.armor = 0;
-        }
         selfUnit.vampirism += 50;
+        if (selfUnit.armor == 0) return;
+        selfUnit.armor -= 25;
     }
     public void SetRoundLeft(int value)
     {

@@ -3,7 +3,7 @@
 internal sealed class UnitConfigBuff
 {
     public string unitName;
-    public int attackForce;
+    public float attackForce;
     public float health;
     public float armor;
     public float vampirism;
@@ -15,6 +15,7 @@ internal sealed class UnitConfigBuff
         attackForce = unitConfig.attackForce;
         health = unitConfig.health;
         armor = unitConfig.armor;
+        vampirism = unitConfig.vampirism;
         unitColor = unitConfig.unitColor;
     }
 }
