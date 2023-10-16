@@ -50,10 +50,10 @@ internal sealed class Unit
     {
         OnUnitAttack.Handle(this);
     }
-
     public void OnBuffButtonPressed()
     {
         OnUnitBuffBressed.Handle(this);
+        _unitUIView.addBuffButton.gameObject.SetActive(false);
     }
 
     public void DisableUI()
@@ -77,37 +77,56 @@ internal sealed class Unit
         _unitUIView.armorCounter.text = unitConfigBuff.armor.ToString();
         _unitUIView.vampirismCounter.text = unitConfigBuff.vampirism.ToString();
         _unitUIView.attackForceText.text = $"Attack Force: " + unitConfigBuff.attackForce.ToString();
-    }
 
-    public void AddBuff(IBuff buff)
+        UpdateUIBuff();
+    }
+    public void UpdateUIBuff()
     {
-        _buffs.Add(buff);
-        Debug.Log("добавлен бафф" + buff.ID );
+        BuffIconsSetActive(false);
+        foreach (IBuff buff in _buffs)
+        {
+            BuffIconSetActive(buff, true);
+        }
+    }
+    public void BuffIconSetActive(IBuff buff, bool activeValue)
+    {
         if (buff.ID == 0)
         {
-            _unitUIView.doubleBuffIcon.gameObject.SetActive(true);
+            _unitUIView.doubleBuffIcon.gameObject.SetActive(activeValue);
             _unitUIView.doubleBuffRoundsLeftText.text = buff.RoundLeft.ToString();
         }
         if (buff.ID == 1)
         {
-            _unitUIView.ArmorSelfBuffIcon.gameObject.SetActive(true);
+            _unitUIView.ArmorSelfBuffIcon.gameObject.SetActive(activeValue);
             _unitUIView.ArmorSelfBuffRoundsLeftText.text = buff.RoundLeft.ToString();
         }
         if (buff.ID == 2)
         {
-            _unitUIView.ArmorDestructionBuffIcon.gameObject.SetActive(true);
+            _unitUIView.ArmorDestructionBuffIcon.gameObject.SetActive(activeValue);
             _unitUIView.ArmorDestructionBuffRoundsLeftText.text = buff.RoundLeft.ToString();
         }
         if (buff.ID == 3)
         {
-            _unitUIView.VampirismSelfBuffBuffIcon.gameObject.SetActive(true);
+            _unitUIView.VampirismSelfBuffBuffIcon.gameObject.SetActive(activeValue);
             _unitUIView.VampirismSelfBuffRoundsLeftText.text = buff.RoundLeft.ToString();
         }
         if (buff.ID == 4)
         {
-            _unitUIView.VampirismDecreaseBuffIcon.gameObject.SetActive(true);
+            _unitUIView.VampirismDecreaseBuffIcon.gameObject.SetActive(activeValue);
             _unitUIView.VampirismDecreaseBuffRoundsLeftText.text = buff.RoundLeft.ToString();
         }
+    }
+    public void BuffIconsSetActive(bool activeValue)
+    {
+        _unitUIView.doubleBuffIcon.gameObject.SetActive(activeValue);
+        _unitUIView.ArmorSelfBuffIcon.gameObject.SetActive(activeValue);
+        _unitUIView.ArmorDestructionBuffIcon.gameObject.SetActive(activeValue);
+        _unitUIView.VampirismSelfBuffBuffIcon.gameObject.SetActive(activeValue);
+        _unitUIView.VampirismDecreaseBuffIcon.gameObject.SetActive(activeValue);
+    }
+    public void AddBuff(IBuff buff)
+    {
+        _buffs.Add(buff);
     }
 
     public void DecreaseBuffTime()
@@ -118,9 +137,6 @@ internal sealed class Unit
         {
             buff.SetRoundLeft(buff.RoundLeft - 1);
             if (buff.RoundLeft <= 0) buffsToRemove.Add(buff);
-            {
-                buffsToRemove.Add(buff);
-            }
         }
 
         foreach (IBuff buff in buffsToRemove)

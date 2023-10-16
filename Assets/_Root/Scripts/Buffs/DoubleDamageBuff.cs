@@ -20,6 +20,10 @@ internal sealed class DoubleDamageBuff : IBuff
     {
         _roundLeft = value;
     }
+    public IBuff Clone()
+    {
+        return new DoubleDamageBuff(_roundLeft);
+    }
 }
 
 

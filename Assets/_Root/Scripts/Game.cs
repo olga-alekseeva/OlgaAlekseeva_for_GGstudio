@@ -17,11 +17,11 @@
             UnitManager unitManager = new UnitManager();
             _onStartGame.AddHandler(unitManager.OnStartGame);
 
-            MoveSwither moveSwither = new MoveSwither();
-            unitManager.OnUnitCreated.AddHandler(moveSwither.OnUnitCreated);
-            moveSwither.OnUnitStartMove.AddHandler(unitManager.OnUnitStartMove);
+            MoveSwitcher moveSwitcher = new MoveSwitcher();
+            unitManager.OnUnitCreated.AddHandler(moveSwitcher.OnUnitCreated);
+            moveSwitcher.OnUnitStartMove.AddHandler(unitManager.OnUnitStartMove);
 
-            _onStartFirstRound.AddHandler(moveSwither.FirstRoundStarted);
+            _onStartFirstRound.AddHandler(moveSwitcher.FirstRoundStarted);
 
             UnitAttackController unitAttackController = new UnitAttackController();
             unitManager.OnUnitAttacking.AddHandler(unitAttackController.OnUnitAttacking);
@@ -29,11 +29,11 @@
 
             EndMoveController endMoveController = new EndMoveController();
             unitAttackController.OnAttacked.AddHandler(endMoveController.EndCurrentMove);
-            endMoveController.OnEndCurrentMove.AddHandler(moveSwither.NextMove);
+            endMoveController.OnEndCurrentMove.AddHandler(moveSwitcher.NextMove);
 
             RoundController roundController = new RoundController();
             unitManager.OnUnitCreated.AddHandler(roundController.OnUnitCreated);
-            moveSwither.OnUnitStartMove.AddHandler(roundController.OnUnitStartMove);
+            moveSwitcher.OnUnitStartMove.AddHandler(roundController.OnUnitStartMove);
             _onStartGame.AddHandler(roundController.OnStartGame);
 
             BuffManager buffManager = new BuffManager();

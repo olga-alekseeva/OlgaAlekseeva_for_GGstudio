@@ -19,4 +19,9 @@
     {
         _roundLeft = value;
     }
+    public IBuff Clone()
+    {
+        return new VampirismDecreaseBuff(_roundLeft);
+    }
+
 }

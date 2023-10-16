@@ -1,6 +1,6 @@
 ﻿internal sealed class ArmorSelfBuff : IBuff
 {
-    private int _roundLeft = 2;
+    private int _roundLeft;
     public int RoundLeft => _roundLeft;
     public int ID => 1;
    
@@ -18,4 +18,9 @@
     {
         _roundLeft = value;
     }
+    public IBuff Clone()
+    {
+        return new ArmorSelfBuff(_roundLeft);
+    }
+
 }

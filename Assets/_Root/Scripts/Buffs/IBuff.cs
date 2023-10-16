@@ -5,4 +5,6 @@
 
     public void SetRoundLeft(int value);
     public void Apply(UnitConfigBuff selfUnit, UnitConfigBuff enemyUnit);
+    public IBuff Clone();
+
 }

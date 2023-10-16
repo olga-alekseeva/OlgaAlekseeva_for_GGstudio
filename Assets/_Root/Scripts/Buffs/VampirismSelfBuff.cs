@@ -19,4 +19,9 @@ internal sealed class VampirismSelfBuff : IBuff
     {
         _roundLeft = value;
     }
+    public IBuff Clone()
+    {
+        return new VampirismSelfBuff(_roundLeft);
+    }
+
 }

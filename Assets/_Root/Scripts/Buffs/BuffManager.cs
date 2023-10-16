@@ -42,6 +42,7 @@ internal class BuffManager
         if (unitbuff.Count >= 2) return null;
         IBuff newBuff = available.GetRandom();
         if (IsBuffInList(unitbuff, newBuff)) return null;
-        return newBuff;
+        return newBuff.Clone();
+
     }
 }

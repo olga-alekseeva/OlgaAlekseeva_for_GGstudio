@@ -1,6 +1,6 @@
 ﻿internal sealed class ArmorDestruction: IBuff
 {
-    private int _roundLeft = 3;
+    private int _roundLeft;
     public int RoundLeft => _roundLeft;
     public int ID => 2;
 
@@ -19,4 +19,9 @@
     {
         _roundLeft = value;
     }
+    public IBuff Clone()
+    {
+        return new ArmorDestruction(_roundLeft);
+    }
+
 }

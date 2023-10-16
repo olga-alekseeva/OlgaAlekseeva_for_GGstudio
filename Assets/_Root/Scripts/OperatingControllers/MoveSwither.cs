@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-internal sealed class MoveSwither
+internal sealed class MoveSwitcher
 {
     public EventHandler<Unit> OnUnitStartMove = new();
 
