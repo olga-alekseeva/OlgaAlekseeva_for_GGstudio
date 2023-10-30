@@ -17,6 +17,7 @@
             UnitManager unitManager = new UnitManager();
             _onStartGame.AddHandler(unitManager.OnStartGame);
 
+
             MoveSwitcher moveSwitcher = new MoveSwitcher();
             unitManager.OnUnitCreated.AddHandler(moveSwitcher.OnUnitCreated);
             moveSwitcher.OnUnitStartMove.AddHandler(unitManager.OnUnitStartMove);
